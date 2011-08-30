@@ -128,7 +128,7 @@ sed -i s/@@PASSWORD/$redis_password/ php.ini
 ## Push to DotCloud
 
 Now you can push your app to DotCloud! Simply run \`dotcloud push
-sessions\`. Now, when you visit the app in your browser, each page
+sessions\`. When you visit the app in your browser, each page
 request will return an incremented count. Because your session is now
 stored in Redis, all three nodes have access to the same session.
 
