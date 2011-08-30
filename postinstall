@@ -1,0 +1,20 @@
+#!/bin/sh
+
+if [ ! -e /home/dotcloud/libs/redis.so ]
+then
+    cd /home/dotcloud/current/vendor/phpredis
+    phpize
+    ./configure
+    make
+    mkdir /home/dotcloud/libs
+    cp modules/redis.so /home/dotcloud/libs/
+fi
+
+cd /home/dotcloud
+redis_host=$(grep -o -P '(?<=REDIS_HOST": ").+(?=")' environment.json)
+redis_port=$(grep -o -P '(?<=REDIS_PORT": ").+(?=")' environment.json)
+redis_password=$(grep -o -P '(?<=REDIS_PASSWORD": ").+(?=")' environment.json)
+cd /home/dotcloud/current
+sed -i s/@@HOST/$redis_host/ php.ini
+sed -i s/@@PORT/$redis_port/ php.ini
+sed -i s/@@PASSWORD/$redis_password/ php.ini

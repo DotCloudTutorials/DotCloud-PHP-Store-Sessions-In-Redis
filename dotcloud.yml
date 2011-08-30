@@ -1,0 +1,7 @@
+www:
+    type: php
+    instances: 3
+    requirements:
+        - phpredis
+redis:
+    type: redis
